@@ -1,3 +1,10 @@
+# -*- coding: utf-8 -*-
+"""
+Created on Thu Mar 24 15:19:19 2022
+
+@author: Vikas Kurapati
+"""
+
 import numpy as np
 import torch
 import torch.nn as nn
@@ -37,7 +44,7 @@ class Nodes(Dataset):
     """
     #seed = 42
     def __init__(self,train=True, transform=None):
-        self.tensors= [torch.Tensor(np.load('input_standardized_1.npy')),torch.Tensor(np.load('output_h2_normed.npy'))]
+        self.tensors= [torch.Tensor(np.load('input_standardized_1.npy')),torch.Tensor(np.load('output_O2_1.npy'))]
 
     def __getitem__(self, index):
         x = self.tensors[0][index]

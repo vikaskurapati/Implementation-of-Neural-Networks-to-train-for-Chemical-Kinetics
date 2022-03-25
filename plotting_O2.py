@@ -1,3 +1,10 @@
+# -*- coding: utf-8 -*-
+"""
+Created on Thu Mar 24 15:21:10 2022
+
+@author: Vikas Kurapati
+"""
+
 import numpy as np
 import torch
 from matplotlib import pyplot as plt
@@ -12,7 +19,7 @@ net = net.to("cpu")
 net.eval()
 
 input_nodes = np.load('input_1_1.npy')
-output_nodes = np.load('output_H2_1.npy')
+output_nodes = np.load('output_O2_1.npy')
 input_nodes[:,0] = (input_nodes[:,0] - 1884.074369553378)/433.62573988997286
 input_nodes[:,0] = -1 + 2.0*(input_nodes[:,0] + 1.577568693177102)/2.4984734392012085
 input_nodes[:,1] = (input_nodes[:,1] - 0.004196851599658142)/0.005872701842874536
@@ -33,14 +40,15 @@ outp = np.zeros(output_nodes.shape)
 
 for i,inp in enumerate(input_nodes):
     #torch.reshape(inp, (1,8))
-    mean = 0.00411369961447408
-    std = 0.0058265841672070365
+    mean = 0.005499995502600784
+    std = 0.004424548471831682
     #ptp = 1
     #min_value = 0
-    min_ = -0.6490971636665503
-    ptp = 2.4260934000958563
-    outp[i] = (net(torch.reshape(torch.Tensor(inp),(1,7))).detach().numpy()+1.0)*ptp*0.5 + min_
-    outp[i] = outp[i]*std + mean
+    min_ = -1.2430636631665246
+    ptp = 3.936730369347936
+    #outp[i] = (net(torch.reshape(torch.Tensor(inp),(1,7))).detach().numpy()+1.0)*ptp*0.5 + min_
+    #outp[i] = outp[i]*std + mean
+    outp[i] = net(torch.reshape(torch.Tensor(inp),(1,7))).detach().numpy()
     print(outp[i])
 
 plt.plot(outp)
